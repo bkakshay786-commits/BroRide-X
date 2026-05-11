@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BroRide X — Profile</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="navbar container">
+      <a href="index.html" class="brand">
+        <span class="brand-icon"><img src="BRORIDEX.jpeg" alt="BroRide X logo"></span>
+        <span class="brand-title"><strong>BroRide</strong> <span class="brand-x">X</span></span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="rides.html" class="nav-link">Rides</a>
+        <a href="profile.html" class="nav-link active">Profile</a>
+        <a href="help.html" class="nav-link">Help</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="hero-card" style="max-width: 480px; margin: 40px auto;">
+      <div style="text-align: center; margin-bottom: 32px;">
+        <p class="badge" style="justify-content: center;">Secure Access</p>
+        <h1>Welcome to <strong>BroRide</strong> <span class="brand-x">X</span></h1>
+        <p>Sign in or create an account to book your rides</p>
+      </div>
+
+      <div class="auth-tabs" style="display: flex; gap: 0; margin-bottom: 24px; border-bottom: 2px solid #e5e7eb;">
+        <button class="auth-tab active" data-tab="login" style="flex: 1; padding: 16px; background: none; border: none; font-weight: 700; cursor: pointer; border-bottom: 2px solid #ffbf00; margin-bottom: -2px; color: #111827;">Login</button>
+        <button class="auth-tab" data-tab="signup" style="flex: 1; padding: 16px; background: none; border: none; font-weight: 700; cursor: pointer; color: #7a86a0;">Sign Up</button>
+      </div>
+
+      <form id="login-form" class="auth-form input-group">
+        <div class="input-field">
+          <label>Email or Mobile Number</label>
+          <input type="text" placeholder="Enter email or mobile number" required>
+        </div>
+        <div class="input-field">
+          <label>Password</label>
+          <input type="password" placeholder="Enter your password" required>
+        </div>
+        <button type="submit" class="btn" style="width: 100%; margin-top: 16px;">Sign In</button>
+        <p style="text-align: center; color: #7a86a0; margin-top: 12px; font-size: 0.9rem;"><a href="#" style="color: #ffbf00; text-decoration: none;">Forgot password?</a></p>
+      </form>
+
+      <form id="signup-form" class="auth-form input-group" style="display: none;">
+        <div id="signup-step-1">
+          <div class="input-field">
+            <label>Email or Mobile Number</label>
+            <input id="signup-contact" type="text" placeholder="Enter email or mobile number" required>
+          </div>
+          <button type="button" id="send-otp-btn" class="btn" style="width: 100%; margin-top: 16px;">Send OTP</button>
+        </div>
+
+        <div id="signup-step-2" style="display: none;">
+          <div class="input-field">
+            <label>Enter OTP</label>
+            <input id="signup-otp" type="text" placeholder="Enter 6-digit OTP" maxlength="6" required>
+          </div>
+          <button type="button" id="verify-otp-btn" class="btn" style="width: 100%; margin-top: 16px;">Verify OTP</button>
+          <p style="text-align: center; color: #7a86a0; margin-top: 12px; font-size: 0.9rem;"><a href="#" id="resend-otp-btn" style="color: #ffbf00; text-decoration: none;">Resend OTP</a></p>
+        </div>
+
+        <div id="signup-step-3" style="display: none;">
+          <div class="input-field">
+            <label>Full Name</label>
+            <input id="signup-name" type="text" placeholder="Enter your full name" required>
+          </div>
+          <div class="input-field">
+            <label>Password</label>
+            <input id="signup-password" type="password" placeholder="Create a password" required>
+          </div>
+          <div class="input-field">
+            <label>Confirm Password</label>
+            <input id="signup-confirm-password" type="password" placeholder="Confirm your password" required>
+          </div>
+          <button type="submit" class="btn" style="width: 100%; margin-top: 16px;">Create Account</button>
+        </div>
+        
+        <p style="text-align: center; color: #7a86a0; margin-top: 12px; font-size: 0.85rem;">By signing up, you agree to our Terms of Service and Privacy Policy</p>
+      </form>
+    </section>
+  </main>
+
+  <script>
+    let userContact = '';
+    let generatedOTP = '';
+
+    document.querySelectorAll('.auth-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.auth-form').forEach(f => f.style.display = 'none');
+        tab.classList.add('active');
+        tab.style.color = '#111827';
+        tab.style.borderBottomColor = '#ffbf00';
+        const otherTabs = document.querySelectorAll('.auth-tab:not(.active)');
+        otherTabs.forEach(t => {
+          t.style.color = '#7a86a0';
+          t.style.borderBottom = 'none';
+        });
+        document.getElementById(tab.dataset.tab + '-form').style.display = 'block';
+        
+        // Reset signup form when switching tabs
+        if (tab.dataset.tab === 'signup') {
+          document.getElementById('signup-step-1').style.display = 'block';
+          document.getElementById('signup-step-2').style.display = 'none';
+          document.getElementById('signup-step-3').style.display = 'none';
+          document.getElementById('signup-contact').value = '';
+          document.getElementById('signup-otp').value = '';
+        }
+      });
+    });
+
+    document.getElementById('login-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const toast = document.getElementById('app-toast') || document.createElement('div');
+      toast.textContent = '✓ Login successful!';
+      toast.className = 'toast toast-success';
+      toast.style.opacity = '1';
+      document.body.appendChild(toast);
+      setTimeout(() => toast.style.opacity = '0', 3000);
+    });
+
+    // Send OTP button
+    document.getElementById('send-otp-btn').addEventListener('click', (e) => {
+      e.preventDefault();
+      userContact = document.getElementById('signup-contact').value.trim();
+      
+      if (!userContact) {
+        const toast = document.getElementById('app-toast');
+        toast.textContent = '⚠ Please enter email or mobile number';
+        toast.className = 'toast toast-danger';
+        toast.style.opacity = '1';
+        setTimeout(() => toast.style.opacity = '0', 3000);
+        return;
+      }
+
+      // Validate email or mobile
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const mobileRegex = /^[0-9]{10}$/;
+      
+      if (!emailRegex.test(userContact) && !mobileRegex.test(userContact)) {
+        const toast = document.getElementById('app-toast');
+        toast.textContent = '⚠ Please enter a valid email or 10-digit mobile number';
+        toast.className = 'toast toast-danger';
+        toast.style.opacity = '1';
+        setTimeout(() => toast.style.opacity = '0', 3000);
+        return;
+      }
+
+      // Generate and send OTP
+      generatedOTP = String(Math.floor(100000 + Math.random() * 900000));
+      
+      const toast = document.getElementById('app-toast');
+      toast.textContent = `✓ OTP sent to ${userContact}`;
+      toast.className = 'toast toast-success';
+      toast.style.opacity = '1';
+      setTimeout(() => toast.style.opacity = '0', 3000);
+
+      // Move to OTP verification step
+      document.getElementById('signup-step-1').style.display = 'none';
+      document.getElementById('signup-step-2').style.display = 'block';
+      document.getElementById('signup-otp').focus();
+    });
+
+    // Verify OTP button
+    document.getElementById('verify-otp-btn').addEventListener('click', (e) => {
+      e.preventDefault();
+      const enteredOTP = document.getElementById('signup-otp').value.trim();
+      
+      if (!enteredOTP) {
+        const toast = document.getElementById('app-toast');
+        toast.textContent = '⚠ Please enter OTP';
+        toast.className = 'toast toast-danger';
+        toast.style.opacity = '1';
+        setTimeout(() => toast.style.opacity = '0', 3000);
+        return;
+      }
+
+      if (enteredOTP === generatedOTP) {
+        const toast = document.getElementById('app-toast');
+        toast.textContent = '✓ OTP verified successfully!';
+        toast.className = 'toast toast-success';
+        toast.style.opacity = '1';
+        setTimeout(() => toast.style.opacity = '0', 3000);
+
+        // Move to account details step
+        document.getElementById('signup-step-2').style.display = 'none';
+        document.getElementById('signup-step-3').style.display = 'block';
+        document.getElementById('signup-name').focus();
+      } else {
+        const toast = document.getElementById('app-toast');
+        toast.textContent = '✗ Invalid OTP. Please try again';
+        toast.className = 'toast toast-danger';
+        toast.style.opacity = '1';
+        setTimeout(() => toast.style.opacity = '0', 3000);
+      }
+    });
+
+    // Resend OTP button
+    document.getElementById('resend-otp-btn').addEventListener('click', (e) => {
+      e.preventDefault();
+      generatedOTP = String(Math.floor(100000 + Math.random() * 900000));
+      
+      const toast = document.getElementById('app-toast');
+      toast.textContent = `✓ OTP resent to ${userContact}`;
+      toast.className = 'toast toast-success';
+      toast.style.opacity = '1';
+      setTimeout(() => toast.style.opacity = '0', 3000);
+      
+      document.getElementById('signup-otp').value = '';
+      document.getElementById('signup-otp').focus();
+    });
+
+    // Create Account final submission
+    document.getElementById('signup-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const name = document.getElementById('signup-name').value.trim();
+      const password = document.getElementById('signup-password').value;
+      const confirmPassword = document.getElementById('signup-confirm-password').value;
+
+      if (!name) {
+        const toast = document.getElementById('app-toast');
+        toast.textContent = '⚠ Please enter your full name';
+        toast.className = 'toast toast-danger';
+        toast.style.opacity = '1';
+        setTimeout(() => toast.style.opacity = '0', 3000);
+        return;
+      }
+
+      if (password.length < 6) {
+        const toast = document.getElementById('app-toast');
+        toast.textContent = '⚠ Password must be at least 6 characters';
+        toast.className = 'toast toast-danger';
+        toast.style.opacity = '1';
+        setTimeout(() => toast.style.opacity = '0', 3000);
+        return;
+      }
+
+      if (password !== confirmPassword) {
+        const toast = document.getElementById('app-toast');
+        toast.textContent = '⚠ Passwords do not match';
+        toast.className = 'toast toast-danger';
+        toast.style.opacity = '1';
+        setTimeout(() => toast.style.opacity = '0', 3000);
+        return;
+      }
+
+      const toast = document.getElementById('app-toast');
+      toast.textContent = '✓ Account created successfully!';
+      toast.className = 'toast toast-success';
+      toast.style.opacity = '1';
+      setTimeout(() => toast.style.opacity = '0', 3000);
+
+      // Reset form
+      document.getElementById('signup-form').reset();
+      document.getElementById('signup-step-1').style.display = 'block';
+      document.getElementById('signup-step-2').style.display = 'none';
+      document.getElementById('signup-step-3').style.display = 'none';
+    });
+  </script>
+
+  <footer class="footer">© 2026 BroRide X. Your journey, simplified.</footer>
+  <script src="script.js"></script>
+</body>
+</html>

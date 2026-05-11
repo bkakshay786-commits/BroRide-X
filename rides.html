@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BroRide X — My Rides</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="navbar container">
+      <a href="index.html" class="brand">
+        <span class="brand-icon"><img src="BRORIDEX.jpeg" alt="BroRide X logo"></span>
+        <span class="brand-title"><strong>BroRide</strong> <span class="brand-x">X</span></span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="rides.html" class="nav-link active">Rides</a>
+        <a href="profile.html" class="nav-link">Profile</a>
+        <a href="help.html" class="nav-link">Help</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="hero-card">
+      <div class="hero-copy">
+        <p class="badge">Your latest trips</p>
+        <h1>Track your rides and manage bookings</h1>
+        <p>See confirmed rides, check estimated prices, and access your ride history in one place.</p>
+      </div>
+    </section>
+
+    <section class="panel" style="margin-top:24px;">
+      <h2 class="panel-title">Upcoming & Recent Rides</h2>
+      <div id="recent-rides" class="grid-2">
+        <article class="ride-card">
+          <div class="ride-row">
+            <div>
+              <strong>Loading rides...</strong>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel" style="margin-top:24px;">
+      <h2 class="panel-title">Quick actions</h2>
+      <div class="grid-3">
+        <div class="summary-card">
+          <strong>Book a ride</strong>
+          <p>Find a new ride in seconds. Fast, safe, and cashless payments available.</p>
+          <a href="index.html" class="btn">Book Now</a>
+        </div>
+        <div class="summary-card">
+          <strong>Saved routes</strong>
+          <p>Access your favorite pickups and drop points instantly.</p>
+          <p class="card-label">Home · Work · Airport</p>
+        </div>
+        <div class="summary-card">
+          <strong>Support</strong>
+          <p>Need help? Contact our support team or report an issue.</p>
+          <a href="help.html" class="btn-secondary">Get Help</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">© 2026 BroRide X. Fast rides, smooth journeys.</footer>
+  <script src="script.js"></script>
+</body>
+</html>

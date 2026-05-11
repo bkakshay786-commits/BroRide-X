@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BroRide X — Help</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="navbar container">
+      <a href="index.html" class="brand">
+        <span class="brand-icon"><img src="BRORIDEX.jpeg" alt="BroRide X logo"></span>
+        <span class="brand-title"><strong>BroRide</strong> <span class="brand-x">X</span></span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="rides.html" class="nav-link">Rides</a>
+        <a href="profile.html" class="nav-link">Profile</a>
+        <a href="help.html" class="nav-link active">Help</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="hero-card">
+      <div class="hero-copy">
+        <p class="badge">Support center</p>
+        <h1>Need help with a ride?</h1>
+        <p>Browse common questions, contact support, or report an issue directly from your dashboard.</p>
+      </div>
+    </section>
+
+    <section class="panel" style="margin-top:24px;">
+      <h2 class="panel-title">Common questions</h2>
+      <ul id="help-list" class="help-list">
+        <li>
+          <strong>Loading frequently asked questions…</strong>
+        </li>
+      </ul>
+    </section>
+
+    <section class="panel" style="margin-top:24px;">
+      <h2 class="panel-title">Contact support</h2>
+      <form id="support-form" class="input-group">
+        <div class="input-field">
+          <label>Your issue</label>
+          <textarea id="support-issue" rows="4" placeholder="Describe your problem"></textarea>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn">Send request</button>
+          <button type="button" class="btn-secondary" onclick="window.location='tel:8310182882'">Call support</button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <footer class="footer">Questions? Email <a href="mailto:bkakshay193@gmail.com">bkakshay193@gmail.com</a> or call <a href="tel:8310182882">8310182882</a></footer>
+  <script src="script.js"></script>
+</body>
+</html>
